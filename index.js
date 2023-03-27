@@ -227,7 +227,7 @@ app.put("/rateMovie/:username/:movieId",(req,res)=>{
     username=req.params.username
     movieId=req.params.movieId
     rating=req.body["rating"]
-
+    console.log("here")
     queries.rateMovie(username,movieId,rating).then(response=>{
         res.send({"message":response})
     })

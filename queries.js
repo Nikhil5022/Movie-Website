@@ -336,10 +336,21 @@ async function rateMovie(username,movieID,rating){
     for(let i of movie.ratings){
         if(i.username==user.username){
             oldRating=i.rating
+            sumOfRatings=movie.avgRating*movie.ratings.length
+            sumOfRatings=sumOfRatings-oldRating
+            if(movie.ratings.length==1){
+                movie.avgRating=0
+            }
+            else{
+                movie.avgRating=sumOfRatings/(movie.ratings.length-1)
+            }
+            
             index=movie.ratings.indexOf(i)
             movie.ratings.splice(index,1)
             index=user.ratings.indexOf({"movie":movie._id,"rating":oldRating})
             user.ratings.splice(index,1)
+            console.log(user)
+            console.log(movie)
             break
         }
     }
@@ -347,7 +358,8 @@ async function rateMovie(username,movieID,rating){
     else{
     sumOfRatings=movie.avgRating*movie.ratings.length
     }
-    movie.avgRating=(sumOfRatings+rating)/(movie.ratings.length+1)
+    console.log("sr"+sumOfRatings)
+    movie.avgRating=(sumOfRatings+Number(rating))/(movie.ratings.length+1)
 
     movie.ratings.push({"username":user.username,"rating":rating})
     user.ratings.push({"movie":movieId,"rating":rating})

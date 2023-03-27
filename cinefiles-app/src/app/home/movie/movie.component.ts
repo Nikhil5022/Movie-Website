@@ -2,6 +2,7 @@ import { HomeComponent } from './../home.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Component, ViewChild, SimpleChanges } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-movie',
@@ -22,6 +23,10 @@ export class MovieComponent {
     temp:any
     moviereviews:Array<any>=[]
     emptyreview:String=""
+    ratingcontrol=new FormControl(0);
+    rating:any
+
+
     async ngOnInit() {
       this.movieId = this.route.snapshot.paramMap.get('id');
       this.movieData = await this.http.get("http://localhost:9000/getMovieById/" + this.movieId).toPromise();    
@@ -33,6 +38,13 @@ export class MovieComponent {
           "reviewdata": this.review
         };
         this.moviereviews.splice(0,0,this.temp)
+      }
+
+      for(let rating of this.home.userData.ratings){
+        if(rating.movie==this.movieData._id){
+          this.rating=rating.rating
+          break
+        }
       }
     }
 
@@ -108,5 +120,12 @@ export class MovieComponent {
       })
       this.watchlistButton.nativeElement.classList.add("fa-regular")
     }
+  }
+
+  rateMovie(){
+    console.log(this.ratingcontrol.value)
+    this.http.put("http://localhost:9000/rateMovie/"+this.home.userData.username+"/"+this.movieData._id,{"rating":this.ratingcontrol.value}).subscribe(resp=>{
+      console.log(resp)
+  })
   }
 }
