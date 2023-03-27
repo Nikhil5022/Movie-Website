@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { HomeComponent } from '../home.component';
+
 @Component({
   selector: 'app-favorites',
   templateUrl: './favorites.component.html',

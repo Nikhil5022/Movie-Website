@@ -1,9 +1,7 @@
 
 
-
-<body >
-    <div class="flex flex-col p-3 items-center min-h-screen bg-gray-800">
-        <div class="text-lg text-center text-[#FFFFFF] font-semibold">POPULAR MOVIES</div>
+    <div class="flex flex-col p-3 items-center min-h-screen bg-gray-800" *ngIf="!this.noResults">
+        <div class="text-lg text-center text-[#FFFFFF] font-semibold">RESULTS</div>
         <div class="p-4">
             <div class="grid grid-cols-5 justify-around gap-5 text-[#FFFFFF] font-semibold">
                 <div *ngFor="let movie of this.searchResults">
@@ -15,4 +13,3 @@
             </div>
         </div>
     </div>
-</body>

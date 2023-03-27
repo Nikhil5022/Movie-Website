@@ -24,6 +24,11 @@
                    
                 <i class="fa-solid fa-share-nodes text-4xl hover:cursor-pointer"></i>
             </div>
+            <share-buttons  [theme]="'material-dark'" class="p-2 pt-4 flex"   
+             [include]="['facebook','twitter','copy','reddit']"
+            [show]="11"
+            [autoSetMeta]="false"
+            ></share-buttons>
             
         </div>
         <div class="p-3">
